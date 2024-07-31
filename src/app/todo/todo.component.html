@@ -1,0 +1,13 @@
+<h1>Cose da fare</h1>
+
+<form (ngSubmit) = "addTodo()">
+    <input type="text" [(ngModel)] = "newTodo" name="todo">
+    <button type="submit">Aggiungi</button>
+</form>
+
+<ol>
+    @for (todo of todos; track $index) {
+        <li>{{ todo.todo }}</li>
+        <button (click)="removeTodo(todo.id)">elimina</button>
+    }
+</ol>
