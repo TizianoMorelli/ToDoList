@@ -1,13 +1,59 @@
-<h1>Cose da fare</h1>
-
-<form (ngSubmit)="addTodo()">
-    <input type="text" [(ngModel)] = "newTodo" name="todo" placeholder="Aggiungi una nuova attività">
-    <button type="submit">Aggiungi</button>
-  </form>
-
-<ol>
-    @for (todo of todos; track $index) {
-        <li>{{ todo.todo }}</li>
-        <button (click)="removeTodo(todo.id)">elimina</button>
-    }
-</ol>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row m-5 d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card">
+            <div class="card-body p-5">
+  
+              <form class="d-flex justify-content-center align-items-center mb-4" (ngSubmit)="addTodo()">
+                <div data-mdb-input-init class="form-outline flex-fill">
+                  <input class="form-control" type="text" [(ngModel)]="newTodo" name="todo" placeholder="Aggiungi una nuova attività">
+                </div>
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn ms-2">Add</button>
+              </form>
+  
+              <!-- Tabs navs -->
+              <ul class="nav nav-tabs mb-4" id="ex1" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a class="nav-link" [class.active]="filter === 'active'" (click)="changeFilter('active')">Active</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" [class.active]="filter === 'completed'" (click)="changeFilter('completed')">Completed</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" [class.active]="filter === 'all'" (click)="changeFilter('all')">All</a>
+                    </li>
+              </ul>
+              <!-- Tabs navs -->
+  
+              <!-- Tabs content -->
+              <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                  <ul class="list-group mb-0">
+                    <li *ngFor="let todo of filteredTodos; trackBy: trackById" class="list-group-item d-flex align-items-center border-0 mb-2 rounded">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-9 d-flex align-items-center">
+                            <input class="form-check-input mx-2" type="checkbox" [checked]="todo.completed" (change)="toggleTodoCompletion(todo.id)" aria-label="..." />
+                            <p [ngClass]="{'text-decoration-line-through': todo.completed, 'text-muted': todo.completed, 'text-capitalize': true}">
+                              {{ todo.todo }}
+                            </p>
+                          </div>
+                          <div class="col-3 d-flex justify-content-end">
+                            <button class="btn btn-danger" (click)="removeTodo(todo.id)">Elimina</button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Tabs content -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
